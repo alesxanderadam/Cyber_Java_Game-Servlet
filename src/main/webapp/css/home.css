@@ -1,0 +1,55 @@
+body{
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+}
+@font-face {
+    font-family: fontGamme;
+    src: url(../css/font/Pony.ttf);
+}
+.bg-game{
+    background: url(../image/bgGame.png);
+    font-family: fontGamme;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.bg-game h3{
+   margin: 0;
+   font-weight: 500;
+   font-size: 4rem;
+   border-radius: 10px;
+}
+
+.bg-game .content{
+    max-width: 80%;
+    margin: 50px auto;
+}
+.play form h3{
+    font-size: 1.5rem;
+}
+.play form input:nth-of-type(1){
+    width: 100px;
+    border-radius: 100rem;
+    color: red;
+    text-align: center;
+}
+
+.play form input:nth-of-type(3){
+    width: 160px;
+    border-radius: 100rem;
+    text-align: center;
+    margin-right: 10px;
+}
+.play form button{
+    background-color: #FFF;
+    cursor: pointer;
+    width: 80px;
+    border-radius: 100rem;
+    transition: all 0.5s ease;
+}
+
+.play form button:hover{
+    background-color: transparent;
+    color: #FFFFFF;
+}
