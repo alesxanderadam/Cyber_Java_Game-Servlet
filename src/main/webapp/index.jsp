@@ -1,4 +1,3 @@
-<%@ page import="models.Player" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
     <%@ page isELIgnored="false" %>
@@ -73,7 +72,7 @@
                                     Chúc mừng! Bạn đã đoán đúng chỉ sau <span class="text-danger">${numguess.getNumGuesses()}</span>  lần thử.
                                     Muốn thử lại?.<br>
                                     <% numguess.reset(); %>
-                                    <a href="<c:url value="/player" />">Chơi lại</a>?
+                                    <a href="<c:url value="/" />">Chơi lại</a>?
                                 </c:when>
                                 <c:when test="${numguess.getNumGuesses() == 0}">
                                     <form action='#' method='post' style='text-align:center'>

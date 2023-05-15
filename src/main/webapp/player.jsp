@@ -20,7 +20,7 @@
 
                                 <h2 class="fw-bold mb-2 text-uppercase">Đăng nhập</h2>
                                 <p class="text-white-50 mb-5">Làm ơn nhập email của bạn!</p>
-                                <form action="<c:url value="/player" />" method="post">
+                                <form action="<c:url value="/" />" method="post">
 
                                 <div class="form-outline form-white mb-4">
                                     <input name="email" type="email" id="typeEmailX" class="form-control form-control-lg" placeholder="abc@gmail.com" />
@@ -40,7 +40,6 @@
                                 <p class="mb-0">Don't have an account? <a href="#!" class="text-white-50 fw-bold">Sign Up</a>
                                 </p>
                             </div>
-
                         </div>
                     </div>
                 </div>
