@@ -1,11 +1,11 @@
 <%@ page import="models.Player" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
     <%@ page isELIgnored="false" %>
     <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
     <!DOCTYPE html>
     <jsp:useBean id="numguess" class="models.Game" scope="session"/>
     <jsp:setProperty name="numguess" property="*"/>
-    <c:set var="player" scope="session" value="${sessionScope.player}" />
     <html>
     <head>
         <meta charset="utf-8">
@@ -19,14 +19,28 @@
         <!-- Custom CSS -->
         <link href="<c:url value="/css/home.css" />"  rel="stylesheet"/>
     </head>
-
-    <%
-        String email = request.getParameter("email");
-        Player player = new Player();
-        player.setEmail(email);
-        session.setAttribute("player", player);
-        System.out.println("tao la email " + player.getEmail());
-    %>
+        <c:choose>
+            <c:when test="${numguess.getNumGuesses() == 0}">
+                <%!
+                    ArrayList<String[]> userList = new ArrayList<>();
+                %>
+                <%
+                    String email = request.getParameter("email");
+                    session.setAttribute("email", email);
+                    numguess.reset();
+                %>
+            </c:when>
+            <c:when test="${numguess.getSuccess()}">
+                <%
+                    String count = Integer.toString(numguess.getNumGuesses()) ;
+                    System.out.println("NUM GUESS " + count);
+                    System.out.println("Count " + count);
+                    String[] user = {(String) session.getAttribute("email"), count};
+                    userList.add(user);
+                    session.setAttribute("userList", userList);
+                %>
+            </c:when>
+        </c:choose>
     <body>
         <div class="bg-game">
             <h3 class='text-center display-4 pt-3'>ĐOÁN SỐ MENTOR NHÉ :))</h3>
@@ -42,11 +56,13 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>ltqhuy.th0112@gmail.com</td>
-                                <td>4</td>
-                            </tr>
+                            <c:forEach items="${userList}" var="user" varStatus="status">
+                                <tr>
+                                    <td>${status.index + 1}</td>
+                                    <td>${user[0]}</td>
+                                    <td>${user[1]}</td>
+                                </tr>
+                            </c:forEach>
                             </tbody>
                         </table>
                     </div>
@@ -54,19 +70,20 @@
                         <div class="play">
                             <c:choose>
                                 <c:when test="${numguess.getSuccess()}">
-                                    Chúc mừng! Bạn đã đoán đúng chỉ sau ${numguess.getNumGuesses()} lần thử.
+                                    Chúc mừng! Bạn đã đoán đúng chỉ sau <span class="text-danger">${numguess.getNumGuesses()}</span>  lần thử.
                                     Muốn thử lại?.<br>
                                     <% numguess.reset(); %>
-                                    <a href="index.jsp">Chơi lại</a>?
+                                    <a href="<c:url value="/player" />">Chơi lại</a>?
                                 </c:when>
                                 <c:when test="${numguess.getNumGuesses() == 0}">
                                     <form action='#' method='post' style='text-align:center'>
                                         <h2>Nhập số dự đoán từ 1-1000</h2>
+                                        <label>Này là số bí mật nha mentor: </label>
                                         <input class="py-2 my-2" type='text' name='randomNumber' disabled value="${numguess.getAnswer()}">
+
                                         <input class="d-none" type='text' name='username' disabled />
                                         <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 10px">
                                             <p style="margin-bottom: 0; margin-right: 5px; font-size: 1.5rem">Số lần đoán: <span class="text-danger" style="font-size: 20px">${numguess.getNumGuesses() }</span></p>
-                                            <input type='text' name='count' disabled style="width: 20px; height: 20px; border-radius: 100rem; font-size: 12px; text-align: center; color: red; font-weight: bold">
                                         </div>
                                         <input type='text' name='guess' required pattern='[0-9]+' />
                                         <button type='submit'>Đoán</button>
@@ -80,7 +97,6 @@
                                         <input class="d-none" type='text' name='username' disabled />
                                         <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 10px">
                                             <p style="margin-bottom: 0; margin-right: 5px; font-size: 1.5rem">Số lần đoán: <span class="text-danger" style="font-size: 20px">${numguess.getNumGuesses() }</span></p>
-                                            <input type='text' name='count' disabled style="width: 20px; height: 20px; border-radius: 100rem; font-size: 12px; text-align: center; color: red; font-weight: bold">
                                         </div>
                                         <input type='text' name='guess' required pattern='[0-9]+' />
                                         <button type='submit'>Đoán</button>

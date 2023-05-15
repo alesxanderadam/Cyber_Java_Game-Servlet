@@ -7,10 +7,8 @@
         private String hint;
         private int numGuesses;
         private boolean success;
-//        private List<Player> playerGuesses;
         public void Game(){
             reset();
-//            playerGuesses = new ArrayList<>();
         }
         public void setGuess(String guess) {
             numGuesses++;
@@ -35,9 +33,6 @@
             else if (g > answer) {
                 hint = "Quá cao! hạ xuống xí nào";
             }
-            Player player = new Player();
-//            playerGuesses.add(new Player(player.getEmail(), numGuesses));
-
         }
         public boolean getSuccess() {
             return success;
@@ -51,14 +46,10 @@
         public int getAnswer(){
             return answer;
         }
-//        public List<Player> getPlayerGuesses() {
-//            return playerGuesses;
-//        }
         public void reset() {
             answer = (int) (Math.random() * 1000 + 1);
             //answer = Math.abs(new Random().nextInt() % 100) + 1;
             success = false;
             numGuesses = 0;
-//            playerGuesses.clear();
         }
     }
